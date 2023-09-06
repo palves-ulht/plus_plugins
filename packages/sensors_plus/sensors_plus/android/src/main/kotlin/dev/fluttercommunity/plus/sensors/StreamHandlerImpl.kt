@@ -7,6 +7,8 @@ import android.hardware.SensorManager
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
+const val SAMPLING_PERIOD = 20 // ms
+
 internal class StreamHandlerImpl(
     private val sensorManager: SensorManager,
     private val sensorType: Int
@@ -22,7 +24,7 @@ internal class StreamHandlerImpl(
             sensorManager.registerListener(
                 sensorEventListener,
                 sensor,
-                SensorManager.SENSOR_DELAY_NORMAL
+                SAMPLING_PERIOD * 1000
             )
         } else {
             events.error(
